@@ -35,6 +35,8 @@ app.use('/api/like', likeRoutes)
 //   app.get('/', (req, res) => res.status(200).send('Server running'))
 // }
 
+app.get('/', (req, res) => res.status(200).send('Server running'))
+
 app.use(notFound)
 app.use(errorHandler)
 

@@ -34,7 +34,7 @@ app.use('/api/like', likeRoutes)
 //   app.get('/', (req, res) => res.status(200).send('Server running'))
 // }
 
-app.get('/', (req, res) => res.status(200).setHeader("Access-Control-Allow-Credentials", "true").send('Server running'))
+app.get('/', (req, res) => res.status(200).setHeader("Access-Control-Allow-Credentials", "*").send('Server running'))
 
 app.use(notFound)
 app.use(errorHandler)

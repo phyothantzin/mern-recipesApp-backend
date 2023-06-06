@@ -8,7 +8,7 @@ import fs from 'fs'
 const fetchRecipes = asyncHandler(async (req, res) => {
   try {
     const recipes = await Recipes.find({})
-    res.status(200).json(recipes)
+    res.status(200).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json(recipes)
   } catch (err) {
     res.status(500)
     throw new Error('Internal Server Error: Recipes not found')
@@ -21,7 +21,7 @@ const fetchUserRecipes = asyncHandler(async (req, res) => {
   const { userId } = req.body
   try {
     const recipes = await Recipes.find({ owner: userId })
-    res.status(200).json(recipes)
+    res.status(200).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json(recipes)
   } catch (err) {
     res.status(500)
     throw new Error('Internal Server Error: Recipes not found')
@@ -33,7 +33,7 @@ const fetchUserRecipes = asyncHandler(async (req, res) => {
 const createRecipes = asyncHandler(async (req, res) => {
   try {
     const recipe = await Recipes.create({ ...req.body })
-    res.json(recipe)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json(recipe)
   } catch (err) {
     res.status(401)
     throw new Error('Invalid data. Please try again')
@@ -47,7 +47,7 @@ const deleteRecipes = asyncHandler(async (req, res) => {
 
   try {
     await Recipes.deleteOne({ _id: recipeId, owner: userId })
-    res.status(201)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(201)
   } catch (err) {
     res.status(401)
     throw new Error('Invalid data. Please try again')
@@ -64,7 +64,7 @@ const saveRecipes = asyncHandler(async (req, res) => {
   try {
     user.savedRecipes.push(recipe)
     await user.save()
-    res.status(201).json({
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(201).json({
       savedRecipes: user.savedRecipes,
     })
   } catch (err) {

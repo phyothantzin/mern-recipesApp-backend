@@ -43,8 +43,14 @@ app.use('/api/like', likeRoutes)
 // } else {
 //   app.get('/', (req, res) => res.status(200).send('Server running'))
 // }
-
-app.get('/', (req, res) => res.status(200).setHeader("Access-Control-Allow-Credentials", "*").send('Server running'))
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+app.get('/', (req, res) => res.status(200).send('Server running'))
 
 app.use(notFound)
 app.use(errorHandler)

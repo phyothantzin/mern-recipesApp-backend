@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email })
 
   if (userExists) {
-    res.status(400)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(400)
     throw new Error('User already exists')
   }
 
@@ -24,7 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
     })
   } else {
-    res.status(400)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(400)
     throw new Error('Invalid user data')
   }
 })
@@ -45,7 +45,7 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
     })
   } else {
-    res.status(401)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(401)
     throw new Error('Invalid email or password')
   }
 })
@@ -58,7 +58,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     secure: process.env.NODE_ENV === 'production',
     expires: new Date(0),
   })
-  res.json({ message: 'Logged out successfully' })
+  res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({ message: 'Logged out successfully' })
 })
 
 //@desc Get user profile
@@ -73,7 +73,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
     })
   } else {
-    res.status(404)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(404)
     throw new Error('User not found')
   }
 })
@@ -99,7 +99,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
     })
   } else {
-    res.status(404)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(404)
     throw new Error('User not found')
   }
 })

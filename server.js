@@ -17,8 +17,16 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
+var whitelist = ['https://therecipesapp.onrender.com']
 app.use(cors({
-  origin: 'https://therecipesapp.onrender.com'
+  credentials: true,
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }))
 
 app.use('/api/users', userRoutes)

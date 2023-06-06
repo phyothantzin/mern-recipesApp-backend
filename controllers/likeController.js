@@ -15,7 +15,7 @@ const like = asyncHandler(async (req, res) => {
       userId: user._id,
       recipeId: recipe._id,
     })
-    res.status(200).json(likeDoc)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(200).json(likeDoc)
   } catch (err) {
     res.status(500)
     throw new Error('Internal Server Error')
@@ -34,7 +34,7 @@ const dislike = asyncHandler(async (req, res) => {
       userId: user._id,
       recipeId: recipe._id,
     })
-    res.status(200).json(dislikeDoc)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(200).json(dislikeDoc)
   } catch (err) {
     res.status(500)
     throw new Error('Internal Server Error')

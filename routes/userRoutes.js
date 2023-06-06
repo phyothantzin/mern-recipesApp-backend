@@ -7,8 +7,10 @@ import {
   registerUser,
 } from '../controllers/userController.js'
 import { protect } from '../middleware/authMiddleware.js'
+import cors from 'cors'
 
 const router = express.Router()
+router.all('*', cors());
 
 // User Auth Routes
 router.post('/', registerUser)

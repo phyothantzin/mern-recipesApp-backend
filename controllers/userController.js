@@ -18,7 +18,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     generateToken(res, user._id)
 
-    json({
+    res.json({
       _id: user._id,
       name: user.username,
       email: user.email,
@@ -40,7 +40,7 @@ const loginUser = asyncHandler(async (req, res) => {
     generateToken(res, user._id)
 
 //     res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').
-    json({
+    res.json({
       _id: user._id,
       name: user.username,
       email: user.email,
@@ -56,9 +56,10 @@ const loginUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     expires: new Date(0),
   })
-  json({ message: 'Logged out successfully' })
+  res.json({ message: 'Logged out successfully' })
 })
 
 //@desc Get user profile
@@ -67,7 +68,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
-    json({
+    res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -93,7 +94,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save()
 
-    json({
+    res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,

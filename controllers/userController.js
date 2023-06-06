@@ -18,7 +18,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     generateToken(res, user._id)
 
-    res.status(201).json({
+    res.status(201).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({
       _id: user._id,
       name: user.username,
       email: user.email,
@@ -39,7 +39,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id)
 
-    res.json({
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({
       _id: user._id,
       name: user.username,
       email: user.email,
@@ -57,7 +57,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(0),
   })
-  res.status(200).json({ message: 'Logged out successfully' })
+  res.status(200).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({ message: 'Logged out successfully' })
 })
 
 //@desc Get user profile
@@ -66,7 +66,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
-    res.json({
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -92,7 +92,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save()
 
-    res.json({
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json({
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,

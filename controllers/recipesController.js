@@ -10,7 +10,7 @@ const fetchRecipes = asyncHandler(async (req, res) => {
     const recipes = await Recipes.find({})
     res.status(200).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json(recipes)
   } catch (err) {
-    res.status(500)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(500)
     throw new Error('Internal Server Error: Recipes not found')
   }
 })
@@ -23,7 +23,7 @@ const fetchUserRecipes = asyncHandler(async (req, res) => {
     const recipes = await Recipes.find({ owner: userId })
     res.status(200).header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').json(recipes)
   } catch (err) {
-    res.status(500)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(500)
     throw new Error('Internal Server Error: Recipes not found')
   }
 })

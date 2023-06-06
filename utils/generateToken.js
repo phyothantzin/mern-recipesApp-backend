@@ -5,7 +5,7 @@ const generateToken = (res, userId) => {
     expiresIn: '3d',
   })
 
-  res.cookie('jwt', token, {
+  res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').cookie('jwt', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',

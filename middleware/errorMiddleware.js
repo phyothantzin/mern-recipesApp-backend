@@ -1,6 +1,6 @@
 const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`)
-  res.status(404)
+  res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(404)
   next(error)
 }
 
@@ -13,7 +13,7 @@ const errorHandler = (err, req, res, next) => {
     message = 'Resource not found'
   }
 
-  res.status(statusCode).json({
+  res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(statusCode).json({
     message,
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   })

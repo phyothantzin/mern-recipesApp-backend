@@ -15,11 +15,11 @@ const protect = asyncHandler(async (req, res, next) => {
       next()
     } catch (error) {
       console.error(error)
-      res.status(401)
+      res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(401)
       throw new Error('Not authorized, token failed')
     }
   } else {
-    res.status(401)
+    res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com').status(401)
     throw new Error('Not authorized, no token')
   }
 })

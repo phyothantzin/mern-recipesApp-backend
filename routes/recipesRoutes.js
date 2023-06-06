@@ -11,8 +11,10 @@ import {
 import { protect } from '../middleware/authMiddleware.js'
 import User from '../models/userModel.js'
 import Recipes from '../models/recipesModel.js'
+import cors from 'cors'
 
 const router = express.Router()
+router.all('*', cors());
 
 // User Auth Routes
 router.route('/').get(protect, fetchRecipes).post(protect, fetchUserRecipes)

@@ -55,4 +55,4 @@ app.get('/', (req, res) => res.status(200).send('Server running'))
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(port, () => console.log(`Server Running: ${port}`))
+app.listen(port, () => console.log(`Server Running: ${port} on ${process.env.NODE_ENV} mode`))

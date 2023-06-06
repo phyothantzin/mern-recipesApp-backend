@@ -1,8 +1,10 @@
 import express from 'express'
 import { like, dislike } from '../controllers/likeController.js'
 import Likes from '../models/likeModel.js'
+import cors from 'cors'
 
 const router = express.Router()
+router.all('*', cors());
 
 // User Auth Routes
 router.post('/', like)

@@ -8,6 +8,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
+import { upload } from './middleware/imageMiddleware.js'
 
 dotenv.config()
 connectDB()

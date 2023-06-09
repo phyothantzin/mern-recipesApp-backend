@@ -8,7 +8,6 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
-import { upload } from './middleware/imageMiddleware.js'
 
 dotenv.config()
 connectDB()
@@ -34,9 +33,6 @@ app.use('/api/users', userRoutes)
 app.use('/api/recipes', recipesRoutes)
 app.use('/api/like', likeRoutes)
 
-const __dirname = path.resolve()
-app.use('/images', express.static(path.join(__dirname, '/images')))
-
 // if (process.env.NODE_ENV === 'production') {
 //   const __dirname = path.resolve()
 //   app.use(express.static(path.join(__dirname, 'frontend/dist')))
@@ -51,13 +47,10 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'https://therecipesapp.onrender.com');
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,content-type,multipart/form-data');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
     next();
 });
 app.get('/', (req, res) => res.status(200).send('Server running'))
-app.post('/api/upload', upload.single('image'), (req, res) =>
-  res.status(200).json('image uploaded'),
-)
 
 app.use(notFound)
 app.use(errorHandler)

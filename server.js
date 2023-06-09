@@ -33,6 +33,9 @@ app.use('/api/users', userRoutes)
 app.use('/api/recipes', recipesRoutes)
 app.use('/api/like', likeRoutes)
 
+const __dirname = path.resolve()
+app.use('/images', express.static(path.join(__dirname, '/images')))
+
 // if (process.env.NODE_ENV === 'production') {
 //   const __dirname = path.resolve()
 //   app.use(express.static(path.join(__dirname, 'frontend/dist')))
@@ -51,6 +54,9 @@ app.use(function(req, res, next) {
     next();
 });
 app.get('/', (req, res) => res.status(200).send('Server running'))
+app.post('/api/upload', upload.single('image'), (req, res) =>
+  res.status(200).json('image uploaded'),
+)
 
 app.use(notFound)
 app.use(errorHandler)

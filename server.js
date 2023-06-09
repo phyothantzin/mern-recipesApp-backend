@@ -21,14 +21,13 @@ app.use(cookieParser())
 var whitelist = ['https://therecipesapp.onrender.com']
 app.use(cors({
   credentials: true,
-  origin: '*'
-//   origin: function(origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }))
 
 app.use('/api/users', userRoutes)
